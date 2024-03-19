@@ -1,111 +1,114 @@
 X <- c(1, 2, 3, 4)
-Y <- c( 5 * 1^2 + 3 * 1 + 7, 5 * 2^2 + 3 * 2 + 7 , 5 * 3^2 + 3 * 3 + 7, 5 * 4^2 + 3 * 4 + 7)
-n <-lenght(x)
+Y <- c( 5 * 1^2 + 3 * 1 + 7, 5 * 2^2 + 3 * 2 + 7, 5 * 3^2 + 3 * 3 + 7, 5 * 4^2 + 3 * 4 + 7)
+n <- length(X)
 
 nthOrderPolynomialRegression <- function(X, Y) {
-# Kiszámítjuk az 'a2', 'a1', és 'a0' együtthatókat
-	plot(X, Y)
-	a2 <-CalcA2(X, Y) 
-	a1 <-CalcA1(X, Y)
-	a0 <-CalcA0(X, Y)
+
+  # Kirajzoljuk a pontokat
+  plot(X, Y, main = "Polynomial Regression", xlab = "X", ylab = "Y", col = "blue", pch = 19)
 
 
-
-# Kirajzoljuk a pontokat
-	plot(X, Y, main = "Polynomial Regression", xlab = "X", ylab = "Y", col = "blue", pch = 19)
-
-# Hozzáadjuk a regressziós görbét
-	x_range <- seq(min(X), max(X), length.out = 100)
-  	lines(x_range, a2 * x_range^2 + a1 * x_range + a0, col = "blue")
+  # Kiszámítjuk az 'a2', 'a1', és 'a0' együtthatókat
+  plot(X, Y)
+  a2 <-CalcA2(X, Y) 
+  a1 <-CalcA1(X, Y)
+  a0 <-CalcA0(X, Y)
 
 
-	return(c(a2, a1, a0))
+  # Hozzáadjuk a regressziós görbét
+  x_range <- seq(min(X), max(X), length.out = 100)
+  y_range <- a2 * x_range^2 + a1 * x_range + a0
+
+  lines(x_range, y_range , col = "blue")
+
+
+  cat("A2 =", round(a2, 2), "\n")
+  cat("A1 =", round(a1, 2), "\n")
+  cat("A0 =", round(a0, 2), "\n")
+
 }
 
 
 CalcA2 <- function(X, Y) {
-	
-	sumX <- Summary(X)
-      sumY <- Summary(Y)
-      sumXY <- Summary(X,Y)
+  
+  sumX <- Summary(X)
+  sumY <- Summary(Y)
+  sumXY <- Summary(X,Y)
 
-	sumX2Y <- Summary(X^2, Y)
-      sumX2 <- Summary(X^2)
+  sumX2Y <- Summary(X^2, Y)
+  sumX2 <- Summary(X^2)
 
-	sumX3 <- Summary(X^3)
-	sumX4 <- Summary(X^4)
+  sumX3 <- Summary(X^3)
+  sumX4 <- Summary(X^4)
 
-	#számláló
-	numerator <- sumX2Y * ((sumX2 * n) - (sumX * sumX)) - sumX3 * ((sumXY * n) - (sumY * sumX)) + sumX2 * ((sumXY * sumX) - (sumY * sumX2))
+  #számláló
+  numerator <- sumX2Y * ((sumX2 * n) - (sumX * sumX)) - sumX3 * ((sumXY * n) - (sumY * sumX)) + sumX2 * ((sumXY * sumX) - (sumY * sumX2))
 
-	#nevező
-	denominator <- sumX4 * ((sumX2 * n) - (sumX * sumX)) - sumX3 * ((sumX3 * n) - (sumX2  * sumX)) + sumX2 * ((sumX3 * sumX) - (sumX2 * sumX2))
-	return(numerator/denominator)
+  #nevező
+  denominator <- sumX4 * ((sumX2 * n) - (sumX * sumX)) - sumX3 * ((sumX3 * n) - (sumX2  * sumX)) + sumX2 * ((sumX3 * sumX) - (sumX2 * sumX2))
+  return(numerator/denominator)
 }
 
 CalcA1 <- function(X, Y) {
 
-	sumX <- Summary(X)
-      sumY <- Summary(Y)
-      sumXY <- Summary(X,Y)
+  sumX <- Summary(X)
+  sumY <- Summary(Y)
+  sumXY <- Summary(X,Y)
 
-	sumX2Y <- Summary(X^2, Y)
-      sumX2 <- Summary(X^2)
+  sumX2Y <- Summary(X^2, Y)
+  sumX2 <- Summary(X^2)
 
-	sumX3 <- Summary(X^3)
-	sumX4 <- Summary(X^4)
+  sumX3 <- Summary(X^3)
+  sumX4 <- Summary(X^4)
 
-	#számláló
-	numerator <- sumX4 * ((sumX * n) - (sumY * sumX)) - sumX2Y * ((sumX3 * n) - (sumX2 * n)) + sumX2 * ((sumX3 * sumY) - (sumX2 * sumXY))
+  #számláló
+  numerator <- sumX4 * ((sumXY * n) - (sumY * sumX)) - sumX2Y * ((sumX3 * n) - (sumX2 * sumX)) + sumX2 * ((sumX3 * sumY) - (sumX2 * sumXY))
 
-	#nevező
-	denominator <- sumX4 * ((sumX2 * n) - (sumX * sumX)) - sumX3 * ((sumX3 * n) - (sumX2  * sumX)) + sumX2 * ((sumX3 * sumX) - (sumX2 * sumX2))
-	return(numerator/denominator)
-
-
+  #nevező
+  denominator <- sumX4 * ((sumX2 * n) - (sumX * sumX)) - sumX3 * ((sumX3 * n) - (sumX2  * sumX)) + sumX2 * ((sumX3 * sumX) - (sumX2 * sumX2))
+  return(numerator/denominator)
 
 }
 
 CalcA0 <- function(X, Y) {
 
-	sumX <- Summary(X)
-      sumY <- Summary(Y)
-      sumXY <- Summary(X,Y)
+  sumX <- Summary(X)
+  sumY <- Summary(Y)
+  sumXY <- Summary(X,Y)
 
-	sumX2Y <- Summary(X^2, Y)
-      sumX2 <- Summary(X^2)
+  sumX2Y <- Summary(X^2, Y)
+  sumX2 <- Summary(X^2)
 
-	sumX3 <- Summary(X^3)
-	sumX4 <- Summary(X^4)
+  sumX3 <- Summary(X^3)
+  sumX4 <- Summary(X^4)
 
-	#számláló
-	numerator <- sumX4 * ((sumX2 * sumXY) - (sumX * sumXY)) - sumX3 * ((sumX3 * sumXY) - (sumX2 * sumXY)) + sumX2Y * ((sumX3 * sumX) - (sumX2 * sumX2))
+  #számláló
+  numerator <- sumX4 * ((sumX2 * sumY) - (sumX * sumXY)) - sumX3 * ((sumX3 * sumY) - (sumX2 * sumXY)) + sumX2Y * ((sumX3 * sumX) - (sumX2 * sumX2))
 
-	#nevező
-	denominator <- sumX4 * ((sumX2 * n) - (sumX * sumX)) - sumX3 * ((sumX3 * n) - (sumX2  * sumX)) + sumX2 * ((sumX3 * sumX) - (sumX2 * sumX2))
-	return(numerator/denominator)
-
-
+  #nevező
+  denominator <- sumX4 * ((sumX2 * n) - (sumX * sumX)) - sumX3 * ((sumX3 * n) - (sumX2  * sumX)) + sumX2 * ((sumX3 * sumX) - (sumX2 * sumX2))
+  return(numerator/denominator)
 
 
 }
 
 Summary <- function(X, Y) {
 
-	sum <- 0
-	n <- length(X)
+  sum <- 0
+  n <- length(X)
 
-    if (missing(Y)) {
-    	for (i in 1:n) {
-      		sum <- sum + X[i]
-    	}
-   		return(sum)
-  	}
+  if (missing(Y)) {
+    for (i in 1:n) {
+      sum <- sum + X[i]
+    }
+    return(sum)
+  }
 
-	for (i in 1:n) {
+  for (i in 1:n) {
         sum <- sum + X[i] * Y[i]
     }
     return(sum)
 }
 
-nthOrderPolynomialRegression(x, y) 
+nthOrderPolynomialRegression(X, Y)
+
