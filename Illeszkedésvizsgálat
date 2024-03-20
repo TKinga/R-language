@@ -1,0 +1,24 @@
+#Tiszta illeszkedésvizsgálat
+
+#kapott számok
+k <- c(83, 91, 122, 107, 74, 123)
+
+#valószínűség
+p <- c(1/6, 1/6, 1/6, 1/6, 1/6, 1/6)  
+
+#dobások száma
+N <- 600   
+
+
+Illeszkedésvizsgálat <- function(k, p, N){
+	Khi2 <- 0
+	n <- length(k)
+
+	for (i in 1:n) {
+        Khi2 <- Khi2 + ((( k[i] - N * p[i] ) ^2 ) / ( N * p[i] ))
+    	}
+
+    	return(Khi2)
+}
+
+Illeszkedésvizsgálat(k, p, N)
