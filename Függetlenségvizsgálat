@@ -1,0 +1,19 @@
+#Függetlenségvizsgálat
+
+#kapott számok
+kekSzem <- c(42, 28, 3)
+barnaSzem <- c(17, 89, 21)
+
+m.1 <- matrix(c(42, 28, 3, 17, 89, 21), ncol=3, nrow=2, byrow = T)
+
+
+#személyek száma
+N <- 200  
+
+
+Függetlenségvizsgálat <- function
+
+
+}
+
+Illeszkedésvizsgálat(k, p, N)
