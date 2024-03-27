@@ -1,6 +1,10 @@
 # Függetlenségvizsgálat
+
 függetlenség_vizsgálat <- function(adat) {
-  # Adatok beszerzése
+  # Adatok 
+  #kekSzem <- c(42, 28, 3) --> 73
+  #barnaSzem <- c(17, 89, 21) -->117
+  #N <- 200 megkérdezettek száma 
   sorok <- dim(adat)[1]
   oszlopok <- dim(adat)[2]
   
@@ -29,7 +33,7 @@ függetlenség_vizsgálat <- function(adat) {
   }
 }
 
-# Adatok megadása
+# Adatok megadása --> 2 soros, 3 oszlopos mátrix
 adat_mátrix <- matrix(c(42, 28, 3, 17, 89, 21), nrow = 2, ncol = 3, byrow = TRUE)
 
 # Függetlenségvizsgálat elvégzése
