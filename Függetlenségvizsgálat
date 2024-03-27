@@ -1,19 +1,93 @@
-#Függetlenségvizsgálat
-
-#kapott számok
-kekSzem <- c(42, 28, 3)
-barnaSzem <- c(17, 89, 21)
-
-m.1 <- matrix(c(42, 28, 3, 17, 89, 21), ncol=3, nrow=2, byrow = T)
-
-
-#személyek száma
-N <- 200  
-
-
-Függetlenségvizsgálat <- function
-
-
+# Függetlenségvizsgálat
+függetlenség_vizsgálat <- function(adat) {
+  # Adatok beszerzése
+  sorok <- dim(adat)[1]
+  oszlopok <- dim(adat)[2]
+  
+  # Szorzatok és összegek kiszámítása
+  teljes_összeg <- sum(adat)
+  sor_összegek <- rowSums(adat)
+  oszlop_összegek <- colSums(adat)
+  
+  # Khi-négyzet érték kiszámítása
+  khi_négyzet <- 0
+  for (i in 1:sorok) {
+    for (j in 1:oszlopok) {
+      várható_érték <- (sor_összegek[i] * oszlop_összegek[j]) / teljes_összeg
+      khi_négyzet <- khi_négyzet + ((adat[i, j] - várható_érték) ^ 2) / várható_érték
+    }
+  }
+  
+  # Eredmény kiíratása
+  cat("Khi-négyzet érték:", khi_négyzet, "\n")
+  
+  # Elfogadottság ellenőrzése
+  if (khi_négyzet < 44.56) {
+    cat("Az érték elfogadva!\n")
+  } else {
+    cat("Az érték nem elfogadva!\n")
+  }
 }
 
-Illeszkedésvizsgálat(k, p, N)
+# Adatok megadása
+adat_mátrix <- matrix(c(42, 28, 3, 17, 89, 21), nrow = 2, ncol = 3, byrow = TRUE)
+
+# Függetlenségvizsgálat elvégzése
+függetlenség_vizsgálat(adat_mátrix)
+
+
+
+
+
+
+# Independence Test
+independence_test <- function(data) {
+  # Fetching data
+  rows <- dim(data)[1]
+  columns <- dim(data)[2]
+  
+  # Calculating products and sums
+  total_sum <- sum(data)
+  row_sums <- rowSums(data)
+  column_sums <- colSums(data)
+  
+  # Calculating Chi-square value
+  chi_square <- 0
+  for (i in 1:rows) {
+    for (j in 1:columns) {
+      expected_value <- (row_sums[i] * column_sums[j]) / total_sum
+      chi_square <- chi_square + ((data[i, j] - expected_value) ^ 2) / expected_value
+    }
+  }
+  
+  # Printing result
+  cat("Chi-square value:", chi_square, "\n")
+  
+  # Checking for acceptance
+  if (chi_square < 44.56) {
+    cat("The value is accepted!\n")
+  } else {
+    cat("The value is not accepted!\n")
+  }
+}
+
+# Providing data
+data_matrix <- matrix(c(42, 28, 3, 17, 89, 21), nrow = 2, ncol = 3, byrow = TRUE)
+
+# Performing Independence Test
+independence_test(data_matrix)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
