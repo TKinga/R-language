@@ -25,7 +25,7 @@ függetlenség_vizsgálat <- function(adat) {
   if (khi_négyzet < 44.56) {
     cat("Az érték elfogadva!\n")
   } else {
-    cat("Az érték nem elfogadva!\n")
+    cat("Az érték nincs elfogadva!\n")
   }
 }
 
